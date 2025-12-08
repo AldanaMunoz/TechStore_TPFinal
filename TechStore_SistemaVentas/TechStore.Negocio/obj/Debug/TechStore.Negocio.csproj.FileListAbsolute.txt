@@ -1,0 +1,15 @@
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Negocio.dll
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Negocio.pdb
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Datos.dll
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Entidades.dll
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\EntityFramework.dll
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Datos.pdb
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Datos.dll.config
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Entidades.pdb
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\TechStore.Entidades.dll.config
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\bin\Debug\EntityFramework.xml
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\obj\Debug\TechStore.Negocio.csproj.AssemblyReference.cache
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\obj\Debug\TechStore.Negocio.csproj.CoreCompileInputs.cache
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\obj\Debug\TechStor.8BB2AD18.Up2Date
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\obj\Debug\TechStore.Negocio.dll
+D:\Usuario\Documentos\Documentos Aldi\UAI\DAS\TP FINAL\TechStore_SistemaVentas\TechStore.Negocio\obj\Debug\TechStore.Negocio.pdb

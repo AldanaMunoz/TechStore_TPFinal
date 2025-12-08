@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace TechStore.Entidades
+{
+    [Table("Inventario")]
+    public class Inventario
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int ProductoId { get; set; }
+
+        [ForeignKey("ProductoId")]
+        public virtual Producto Producto { get; set; }
+
+        [Required]
+        public int SucursalId { get; set; }
+
+        [ForeignKey("SucursalId")]
+        public virtual Sucursal Sucursal { get; set; }
+
+        [Required]
+        public int StockActual { get; set; }
+
+        public int StockReservado { get; set; }
+
+        public DateTime UltimaActualizacion { get; set; }
+
+        public Inventario()
+        {
+            StockActual = 0;
+            StockReservado = 0;
+            UltimaActualizacion = DateTime.Now;
+        }
+
+        [NotMapped]
+        public string ProductoCodigo => Producto?.Codigo ?? string.Empty;
+
+        [NotMapped]
+        public string ProductoNombre => Producto?.Nombre ?? string.Empty;
+
+        [NotMapped]
+        public string CategoriaNombre => Producto?.Categoria?.Nombre ?? string.Empty;
+
+        [NotMapped]
+        public int ProductoStockMinimo => Producto?.StockMinimo ?? 0;
+
+        [NotMapped]
+        public string SucursalNombre => Sucursal?.Nombre ?? string.Empty;
+    }
+}

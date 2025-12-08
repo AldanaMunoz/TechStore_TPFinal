@@ -1,0 +1,17 @@
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormReporteProductos : Form
+    {
+        public FormReporteProductos()
+        {
+            InitializeComponent();
+        }
+
+        // Add any form logic here (events, helpers, etc.)
+    }
+}

@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace TechStore
+{
+    internal class Datos
+    {
+        internal class Repository<T>
+        {
+            internal object Buscar(Func<object, object> value)
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
+}

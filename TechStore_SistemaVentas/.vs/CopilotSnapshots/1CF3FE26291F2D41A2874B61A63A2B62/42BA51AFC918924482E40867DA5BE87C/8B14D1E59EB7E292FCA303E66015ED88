@@ -1,0 +1,476 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TechStore.Entidades;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormNuevaVenta : Form
+    {
+        private readonly VentaNegocio _ventaNegocio;
+        private readonly ClienteNegocio _clienteNegocio;
+        private readonly ProductoNegocio _productoNegocio;
+        private readonly InventarioNegocio _inventarioNegocio;
+       
+        private readonly TechStore.Datos.Repository<Vendedor> _vendedorRepo;
+        private readonly TechStore.Datos.Repository<Sucursal> _sucursalRepo;
+        private readonly TechStore.Datos.Repository<MetodoPago> _metodoPagoRepo;
+
+        private List<DetalleVenta> _carrito;
+        public FormNuevaVenta()
+        {
+            InitializeComponent();
+            _ventaNegocio = new VentaNegocio();
+            _clienteNegocio = new ClienteNegocio();
+            _productoNegocio = new ProductoNegocio();
+            _inventarioNegocio = new InventarioNegocio();
+            _vendedorRepo = new TechStore.Datos.Repository<Vendedor>();
+            _sucursalRepo = new TechStore.Datos.Repository<Sucursal>();
+            _metodoPagoRepo = new TechStore.Datos.Repository<MetodoPago>();
+
+            _carrito = new List<DetalleVenta>();
+            ConfigurarFormulario();
+        }
+        private void FormNuevaVenta_Load(object sender, EventArgs e)
+        {
+            CargarClientes();
+            CargarVendedores();
+            CargarSucursales();
+            CargarMetodosPago();
+            CargarProductos();
+            ConfigurarDataGridView();
+            InicializarVenta();
+        }
+
+        private void ConfigurarFormulario()
+        {
+            this.Text = "Nueva Venta";
+            numCantidad.Minimum = 1;
+            numCantidad.Maximum = 999;
+            numCantidad.Value = 1;
+        }
+        private void ConfigurarDataGridView()
+        {
+            dgvCarrito.AutoGenerateColumns = false;
+            dgvCarrito.AllowUserToAddRows = false;
+
+            dgvCarrito.Columns.Clear();
+
+            dgvCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.Codigo",
+                HeaderText = "Código",
+                Width = 100
+            });
+
+            dgvCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.Nombre",
+                HeaderText = "Producto",
+                Width = 300
+            });
+
+            dgvCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                Width = 80
+            });
+
+            dgvCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioUnitario",
+                HeaderText = "Precio Unit.",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            dgvCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Subtotal",
+                HeaderText = "Subtotal",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            this.dgvCarrito.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarrito_CellDoubleClick);
+        }
+        private void InicializarVenta()
+        {
+            txtNumeroFactura.Text = "Se generará automáticamente";
+            dtpFechaVenta.Value = DateTime.Now;
+            LimpiarCarrito();
+        }
+
+        private void CargarClientes()
+        {
+            try
+            {
+                var clientes = _clienteNegocio.ObtenerClientes();
+                cmbCliente.DataSource = clientes;
+                cmbCliente.DisplayMember = "RazonSocial";
+                cmbCliente.ValueMember = "Id";
+                cmbCliente.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CargarVendedores()
+        {
+            try
+            {
+                var vendedores = _vendedorRepo.Buscar(vObj => ((Vendedor)vObj).Activo) ?? new List<Vendedor>();
+                cmbVendedor.DataSource = vendedores;
+                cmbVendedor.DisplayMember = "NombreCompleto";
+                cmbVendedor.ValueMember = "Id";
+                cmbVendedor.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar vendedores: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CargarSucursales()
+        {
+            try
+            {
+                var sucursales = _sucursalRepo.Buscar(s => ((Sucursal)s).Activo) ?? new List<Sucursal>();
+                cmbSucursal.DataSource = sucursales;
+                cmbSucursal.DisplayMember = "Nombre";
+                cmbSucursal.ValueMember = "Id";
+                cmbSucursal.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar sucursales: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CargarMetodosPago()
+        {
+            try
+            {
+                var metodos = _metodoPagoRepo.Buscar(m => ((MetodoPago)m).Activo) ?? new List<MetodoPago>();
+                cmbMetodoPago.DataSource = metodos;
+                cmbMetodoPago.DisplayMember = "Nombre";
+                cmbMetodoPago.ValueMember = "Id";
+                cmbMetodoPago.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar métodos de pago: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CargarProductos()
+        {
+            try
+            {
+                var productos = _productoNegocio.ObtenerProductos();
+                cmbProducto.DataSource = productos;
+                cmbProducto.DisplayMember = "Nombre";
+                cmbProducto.ValueMember = "Id";
+                cmbProducto.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar productos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProducto.SelectedIndex >= 0 && cmbSucursal.SelectedIndex >= 0)
+            {
+                var producto = (Producto)cmbProducto.SelectedItem;
+                int sucursalId = (int)cmbSucursal.SelectedValue;
+
+                txtPrecioUnitario.Text = producto.PrecioUnitario.ToString("C2");
+
+                int stock = _inventarioNegocio.ObtenerStockDisponible(producto.Id, sucursalId);
+                txtStockDisponible.Text = stock.ToString();
+
+                numCantidad.Maximum = stock > 0 ? stock : 0;
+            }
+        }
+
+        private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProducto.SelectedIndex >= 0)
+            {
+                cmbProducto_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validaciones
+                if (cmbProducto.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un producto.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbSucursal.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione una sucursal.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var producto = (Producto)cmbProducto.SelectedItem;
+                int cantidad = (int)numCantidad.Value;
+
+                // Verificar si el producto ya está en el carrito
+                var detalleExistente = _carrito.FirstOrDefault(d => d.ProductoId == producto.Id);
+
+                if (detalleExistente != null)
+                {
+                    detalleExistente.Cantidad += cantidad;
+                    detalleExistente.Subtotal = detalleExistente.Cantidad * detalleExistente.PrecioUnitario;
+                }
+                else
+                {
+                    var detalle = new DetalleVenta
+                    {
+                        ProductoId = producto.Id,
+                        Producto = producto,
+                        Cantidad = cantidad,
+                        PrecioUnitario = producto.PrecioUnitario,
+                        Subtotal = cantidad * producto.PrecioUnitario
+                    };
+
+                    _carrito.Add(detalle);
+                }
+
+                ActualizarCarrito();
+                CalcularTotales();
+
+                // Limpiar selección
+                cmbProducto.SelectedIndex = -1;
+                numCantidad.Value = 1;
+                txtPrecioUnitario.Clear();
+                txtStockDisponible.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar producto: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnQuitarProducto_Click(object sender, EventArgs e)
+        {
+            if (dgvCarrito.CurrentRow != null)
+            {
+                var detalle = (DetalleVenta)dgvCarrito.CurrentRow.DataBoundItem;
+                _carrito.Remove(detalle);
+                ActualizarCarrito();
+                CalcularTotales();
+            }
+        }
+
+        private void ActualizarCarrito()
+        {
+            dgvCarrito.DataSource = null;
+            dgvCarrito.DataSource = _carrito;
+        }
+
+        private void CalcularTotales()
+        {
+            decimal subtotal = _carrito.Sum(d => d.Subtotal);
+            txtSubtotal.Text = subtotal.ToString("C2");
+
+            // Obtener descuento del cliente
+            decimal descuento = 0;
+            if (cmbCliente.SelectedIndex >= 0)
+            {
+                var cliente = (Cliente)cmbCliente.SelectedItem;
+                if (cliente.TipoCliente != null)
+                {
+                    descuento = subtotal * (cliente.TipoCliente.PorcentajeDescuento / 100);
+                }
+            }
+
+            txtDescuento.Text = descuento.ToString("C2");
+            decimal total = subtotal - descuento;
+            txtTotal.Text = total.ToString("C2");
+        }
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalcularTotales();
+        }
+
+        private void btnRegistrarVenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validaciones
+                if (cmbCliente.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un cliente.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbVendedor.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un vendedor.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbSucursal.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione una sucursal.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbMetodoPago.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un método de pago.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (_carrito.Count == 0)
+                {
+                    MessageBox.Show("Agregue productos al carrito.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Crear venta
+                var venta = new Venta
+                {
+                    ClienteId = (int)cmbCliente.SelectedValue,
+                    VendedorId = (int)cmbVendedor.SelectedValue,
+                    SucursalId = (int)cmbSucursal.SelectedValue,
+                    MetodoPagoId = (int)cmbMetodoPago.SelectedValue,
+                    FechaVenta = dtpFechaVenta.Value
+                };
+
+                string mensaje;
+                bool resultado = _ventaNegocio.RegistrarVenta(venta, _carrito, out mensaje);
+
+                MessageBox.Show(mensaje, resultado ? "Éxito" : "Error",
+                    MessageBoxButtons.OK,
+                    resultado ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                if (resultado)
+                {
+                    InicializarVenta();
+                    cmbCliente.SelectedIndex = -1;
+                    cmbVendedor.SelectedIndex = -1;
+                    cmbSucursal.SelectedIndex = -1;
+                    cmbMetodoPago.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar venta: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show(
+                "¿Está seguro de cancelar la venta?",
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+        private void LimpiarCarrito()
+        {
+            _carrito.Clear();
+            ActualizarCarrito();
+            txtSubtotal.Text = "$0.00";
+            txtDescuento.Text = "$0.00";
+            txtTotal.Text = "$0.00";
+        }
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Agregar aquí el handler btnEditar_Click que faltaba
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvCarrito.CurrentRow != null)
+            {
+                var detalle = (DetalleVenta)dgvCarrito.CurrentRow.DataBoundItem;
+
+                // Seleccionar el producto en el combobox si está cargado
+                if (cmbProducto.Items.Count > 0)
+                {
+                    try
+                    {
+                        cmbProducto.SelectedValue = detalle.ProductoId;
+                    }
+                    catch { }
+                }
+
+                // Ajustar cantidad dentro del rango del control
+                decimal cantidadDecimal = Math.Max(numCantidad.Minimum, Math.Min(numCantidad.Maximum, (decimal)detalle.Cantidad));
+                numCantidad.Value = cantidadDecimal;
+
+                txtPrecioUnitario.Text = detalle.PrecioUnitario.ToString("C2");
+
+                // Actualizar stock disponible si hay sucursal seleccionada
+                if (cmbSucursal.SelectedIndex >= 0)
+                {
+                    int sucursalId = (int)cmbSucursal.SelectedValue;
+                    int stock = _inventarioNegocio.ObtenerStockDisponible(detalle.ProductoId, sucursalId);
+                    txtStockDisponible.Text = stock.ToString();
+                    numCantidad.Maximum = stock > 0 ? stock : numCantidad.Maximum;
+                }
+
+                // Remover temporalmente el detalle para permitir su edición y re-agregado
+                _carrito.Remove(detalle);
+                ActualizarCarrito();
+                CalcularTotales();
+            }
+        }
+
+        // Handler required by designer
+        private void dgvCarrito_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                btnEditar_Click(sender, e);
+            }
+        }
+    }
+}

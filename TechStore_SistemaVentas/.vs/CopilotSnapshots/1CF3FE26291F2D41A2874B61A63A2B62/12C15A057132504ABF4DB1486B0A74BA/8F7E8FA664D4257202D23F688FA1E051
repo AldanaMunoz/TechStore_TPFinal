@@ -1,0 +1,252 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using TechStore.Entidades;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormInventario : Form
+    {
+        private readonly InventarioNegocio _inventarioNegocio;
+        private List<Inventario> _listaInventario;
+        private Inventario _inventarioSeleccionado;
+
+        public FormInventario()
+        {
+            InitializeComponent();
+            _inventarioNegocio = new InventarioNegocio();
+            ConfigurarFormulario();
+        }
+
+        private void FormInventario_Load(object sender, EventArgs e)
+        {
+            CargarSucursales();
+            ConfigurarDataGridView();
+            BloquearActualizacion();
+        }
+
+        private void ConfigurarFormulario()
+        {
+            this.Text = "Gestión de Inventario";
+            numNuevoStock.Maximum = 99999;
+        }
+
+        private void ConfigurarDataGridView()
+        {
+            dgvInventario.AutoGenerateColumns = false;
+            dgvInventario.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInventario.MultiSelect = false;
+            dgvInventario.ReadOnly = true;
+            dgvInventario.AllowUserToAddRows = false;
+
+            dgvInventario.Columns.Clear();
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.Codigo",
+                HeaderText = "Código",
+                Width = 100
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.Nombre",
+                HeaderText = "Producto",
+                Width = 300
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.Categoria.Nombre",
+                HeaderText = "Categoría",
+                Width = 120
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StockActual",
+                HeaderText = "Stock Actual",
+                Width = 100
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Producto.StockMinimo",
+                HeaderText = "Stock Mínimo",
+                Width = 100
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Sucursal.Nombre",
+                HeaderText = "Sucursal",
+                Width = 150
+            });
+
+            dgvInventario.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "UltimaActualizacion",
+                HeaderText = "Última Actualización",
+                Width = 150,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" }
+            });
+
+            // Estilo para stock bajo
+            dgvInventario.CellFormatting += DgvInventario_CellFormatting;
+        }
+
+        private void DgvInventario_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvInventario.Columns[e.ColumnIndex].HeaderText == "Stock Actual")
+            {
+                if (e.RowIndex >= 0 && e.RowIndex < dgvInventario.Rows.Count)
+                {
+                    var inventario = dgvInventario.Rows[e.RowIndex].DataBoundItem as Inventario;
+                    if (inventario != null && inventario.Producto != null &&
+                        inventario.StockActual <= inventario.Producto.StockMinimo)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.LightCoral;
+                        e.CellStyle.ForeColor = System.Drawing.Color.White;
+                    }
+                }
+            }
+        }
+
+        private void CargarSucursales()
+        {
+            try
+            {
+                
+                var sucursalesObj = new Datos.Repository<Sucursal>().Buscar(s => ((Sucursal)s).Activo);
+                var sucursales = new List<Sucursal>();
+                foreach (var obj in (IEnumerable<object>)sucursalesObj)
+                {
+                    if (obj is Sucursal sucursal)
+                        sucursales.Add(sucursal);
+                }
+                cmbSucursal.DataSource = sucursales;
+                cmbSucursal.DisplayMember = "Nombre";
+                cmbSucursal.ValueMember = "Id";
+                cmbSucursal.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar sucursales: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            if (cmbSucursal.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione una sucursal.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                int sucursalId = (int)cmbSucursal.SelectedValue;
+                _listaInventario = _inventarioNegocio.ObtenerInventarioPorSucursal(sucursalId);
+                dgvInventario.DataSource = _listaInventario;
+                lblTotal.Text = $"Productos en inventario: {_listaInventario.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar inventario: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnStockBajo_Click(object sender, EventArgs e)
+        {
+            if (cmbSucursal.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione una sucursal.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                int sucursalId = (int)cmbSucursal.SelectedValue;
+                _listaInventario = _inventarioNegocio.ObtenerProductosStockBajo(sucursalId);
+                dgvInventario.DataSource = _listaInventario;
+                lblTotal.Text = $"Productos con stock bajo: {_listaInventario.Count}";
+
+                if (_listaInventario.Count == 0)
+                {
+                    MessageBox.Show("No hay productos con stock bajo.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar productos con stock bajo: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvInventario_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvInventario.CurrentRow != null)
+            {
+                _inventarioSeleccionado = (Inventario)dgvInventario.CurrentRow.DataBoundItem;
+                if (_inventarioSeleccionado != null && _inventarioSeleccionado.Producto != null)
+                {
+                    txtProducto.Text = $"{_inventarioSeleccionado.Producto.Codigo} - {_inventarioSeleccionado.Producto.Nombre}";
+                    numNuevoStock.Value = _inventarioSeleccionado.StockActual;
+                    DesbloquearActualizacion();
+                }
+            }
+        }
+
+        private void btnActualizarStock_Click(object sender, EventArgs e)
+        {
+            if (_inventarioSeleccionado == null)
+            {
+                MessageBox.Show("Seleccione un producto del inventario.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string mensaje;
+                bool resultado = _inventarioNegocio.ActualizarStock(
+                    _inventarioSeleccionado.ProductoId,
+                    _inventarioSeleccionado.SucursalId,
+                    (int)numNuevoStock.Value,
+                    out mensaje);
+
+                MessageBox.Show(mensaje, resultado ? "Éxito" : "Error",
+                    MessageBoxButtons.OK,
+                    resultado ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                if (resultado)
+                {
+                    btnCargar_Click(sender, e); // Recargar inventario
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar stock: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BloquearActualizacion()
+        {
+            txtProducto.Clear();
+            numNuevoStock.Value = 0;
+            btnActualizarStock.Enabled = false;
+        }
+
+        private void DesbloquearActualizacion()
+        {
+            btnActualizarStock.Enabled = true;
+        }
+    }
+}

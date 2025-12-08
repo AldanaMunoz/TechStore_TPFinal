@@ -1,0 +1,518 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TechStore.Entidades;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormProductos : Form
+    {
+        private readonly ProductoNegocio _productoNegocio;
+        private List<Producto> _listaProductos;
+        private bool _modoEdicion = false;
+        private bool _suspendirEventos = false; // evita que handlers se ejecuten durante inicialización
+        private bool _suspendirSelection = false;
+        private int _prevSelectedRowIndex = -1;
+        private int _editingProductId = -1;
+
+        public FormProductos()
+        {
+            InitializeComponent();
+            _productoNegocio = new ProductoNegocio();
+            ConfigurarFormulario();
+        }
+        private void FormProductos_Load(object sender, EventArgs e)
+        {
+            _suspendirEventos = true;
+            CargarCategorias();
+            CargarProductos();
+            ConfigurarDataGridView();
+            BloquearControles();
+            _suspendirEventos = false;
+        }
+        private void ConfigurarFormulario()
+        {
+            this.Text = "Gestión de Productos";
+
+            numPrecio.DecimalPlaces = 2;
+            numPrecio.Maximum = 999999999;
+            numPrecio.ThousandsSeparator = true;
+
+            numStockMinimo.Maximum = 9999;
+        }
+        private void ConfigurarDataGridView()
+        {
+            dgvProductos.AutoGenerateColumns = false;
+            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProductos.MultiSelect = false;
+            dgvProductos.ReadOnly = true;
+            dgvProductos.AllowUserToAddRows = false;
+            dgvProductos.AllowUserToDeleteRows = false;
+
+            dgvProductos.Columns.Clear();
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Width = 50
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Codigo",
+                HeaderText = "Código",
+                Width = 100
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Nombre",
+                HeaderText = "Nombre",
+                Width = 250
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Categoria.Nombre",
+                HeaderText = "Categoría",
+                Width = 150
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioUnitario",
+                HeaderText = "Precio",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StockMinimo",
+                HeaderText = "Stock Mín.",
+                Width = 80
+            });
+
+            dgvProductos.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Activo",
+                HeaderText = "Activo",
+                Width = 60
+            });
+        }
+        private void CargarCategorias()
+        {
+            try
+            {
+                var categorias = _productoNegocio.ObtenerCategorias() ?? new List<Categoria>();
+
+                cmbCategorias.DataSource = new List<Categoria>(categorias);
+                cmbCategorias.DisplayMember = "Nombre";
+                cmbCategorias.ValueMember = "Id";
+                cmbCategorias.SelectedIndex = -1;
+
+                cmbCategoria.DataSource = new List<Categoria>(categorias);
+                cmbCategoria.DisplayMember = "Nombre";
+                cmbCategoria.ValueMember = "Id";
+                cmbCategoria.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar categorías: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CargarProductos()
+        {
+            try
+            {
+                _listaProductos = _productoNegocio.ObtenerProductos();
+                dgvProductos.DataSource = _listaProductos;
+
+                lblTotal.Text = $"Total de productos: {_listaProductos.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar productos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string termino = txtBuscar.Text.Trim();
+                int? categoriaId = cmbCategorias.SelectedValue as int?;
+
+                if (!string.IsNullOrEmpty(termino))
+                {
+                    _listaProductos = _productoNegocio.BuscarProductos(termino);
+                }
+                else if (categoriaId.HasValue)
+                {
+                    _listaProductos = _productoNegocio.ObtenerProductosPorCategoria(categoriaId.Value);
+                }
+                else
+                {
+                    _listaProductos = _productoNegocio.ObtenerProductos();
+                }
+
+                dgvProductos.DataSource = null;
+                dgvProductos.DataSource = _listaProductos;
+
+                lblTotal.Text = $"Productos encontrados: {_listaProductos.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en la búsqueda: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Clear();
+            cmbCategorias.SelectedIndex = -1;
+            CargarProductos();
+        }
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            _modoEdicion = false;
+            _editingProductId = -1;
+            LimpiarCampos();
+            DesbloquearControles();
+            txtCodigo.Focus();
+        }
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!ValidarCampos())
+                    return;
+
+                var producto = new Producto
+                {
+                    Codigo = txtCodigo.Text.Trim(),
+                    Nombre = txtNombre.Text.Trim(),
+                    Descripcion = txtDescripcion.Text.Trim(),
+                    CategoriaId = (int)cmbCategoria.SelectedValue,
+                    PrecioUnitario = numPrecio.Value,
+                    StockMinimo = (int)numStockMinimo.Value,
+                    Activo = chkActivo.Checked
+                };
+
+                string mensaje;
+                bool resultado;
+
+                if (_modoEdicion)
+                {
+                    producto.Id = int.Parse(txtId.Text);
+                    _editingProductId = producto.Id;
+                    resultado = _productoNegocio.ActualizarProducto(producto, out mensaje);
+                }
+                else
+                {
+                    resultado = _productoNegocio.AgregarProducto(producto, out mensaje);
+                }
+
+                MessageBox.Show(mensaje, resultado ? "Éxito" : "Error",
+                    MessageBoxButtons.OK,
+                    resultado ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                if (resultado)
+                {
+                    _modoEdicion = false;
+
+                    CargarProductos();
+
+                    if (producto.Id > 0 && _listaProductos != null)
+                    {
+                        int idx = _listaProductos.FindIndex(p => p.Id == producto.Id);
+                        if (idx >= 0 && idx < dgvProductos.Rows.Count)
+                        {
+                            _suspendirSelection = true;
+                            dgvProductos.ClearSelection();
+                            dgvProductos.CurrentCell = dgvProductos.Rows[idx].Cells[0];
+                            dgvProductos.Rows[idx].Selected = true;
+                            _prevSelectedRowIndex = idx;
+                            _suspendirSelection = false;
+                        }
+                    }
+
+                    LimpiarCampos();
+                    BloquearControles();
+                    _editingProductId = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un producto de la lista.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            _modoEdicion = true;
+            var producto = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+            _editingProductId = producto.Id;
+            CargarDatosProducto(producto);
+            DesbloquearControles();
+        }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un producto de la lista.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var producto = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+
+            var resultado = MessageBox.Show(
+                $"¿Está seguro de eliminar el producto '{producto.Nombre}'?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                try
+                {
+                    string mensaje;
+                    bool exito = _productoNegocio.EliminarProducto(producto.Id, out mensaje);
+
+                    MessageBox.Show(mensaje, exito ? "Éxito" : "Error",
+                        MessageBoxButtons.OK,
+                        exito ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                    if (exito)
+                    {
+                        CargarProductos();
+                        LimpiarCampos();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al eliminar: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            BloquearControles();
+        }
+        private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                btnEditar_Click(sender, e);
+            }
+        }
+        private void CargarDatosProducto(Producto producto)
+        {
+            txtId.Text = producto.Id.ToString();
+            txtCodigo.Text = producto.Codigo;
+            txtNombre.Text = producto.Nombre;
+            txtDescripcion.Text = producto.Descripcion;
+            cmbCategoria.SelectedValue = producto.CategoriaId;
+            numPrecio.Value = producto.PrecioUnitario;
+            numStockMinimo.Value = producto.StockMinimo;
+            chkActivo.Checked = producto.Activo;
+        }
+        private void LimpiarCampos()
+        {
+            txtId.Clear();
+            txtCodigo.Clear();
+            txtNombre.Clear();
+            txtDescripcion.Clear();
+            cmbCategoria.SelectedIndex = -1;
+            numPrecio.Value = 0;
+            numStockMinimo.Value = 10;
+            chkActivo.Checked = true;
+        }
+        private void BloquearControles()
+        {
+            txtCodigo.Enabled = false;
+            txtNombre.Enabled = false;
+            txtDescripcion.Enabled = false;
+            cmbCategoria.Enabled = false;
+            numPrecio.Enabled = false;
+            numStockMinimo.Enabled = false;
+            chkActivo.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnCancelar.Enabled = false;
+        }
+        private void DesbloquearControles()
+        {
+            txtCodigo.Enabled = true;
+            txtNombre.Enabled = true;
+            txtDescripcion.Enabled = true;
+            cmbCategoria.Enabled = true;
+            numPrecio.Enabled = true;
+            numStockMinimo.Enabled = true;
+            chkActivo.Enabled = true;
+            btnGuardar.Enabled = true;
+            btnCancelar.Enabled = true;
+        }
+
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+            {
+                MessageBox.Show("Ingrese el código del producto.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCodigo.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MessageBox.Show("Ingrese el nombre del producto.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombre.Focus();
+                return false;
+            }
+
+            if (cmbCategoria.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione una categoría.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbCategoria.Focus();
+                return false;
+            }
+
+            if (numPrecio.Value <= 0)
+            {
+                MessageBox.Show("El precio debe ser mayor a cero.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numPrecio.Focus();
+                return false;
+            }
+
+            return true;
+        }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvProductos_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_suspendirSelection)
+            {
+                _prevSelectedRowIndex = dgvProductos.CurrentRow != null ? dgvProductos.CurrentRow.Index : -1;
+                return;
+            }
+
+            int newIndex = dgvProductos.CurrentRow != null ? dgvProductos.CurrentRow.Index : -1;
+
+            if (_modoEdicion && newIndex != _prevSelectedRowIndex)
+            {
+                var result = MessageBox.Show(
+                    "Está editando un producto. Si cambia de selección se cancelará la edición actual.\n¿Desea continuar y cancelar la edición?",
+                    "Confirmar",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    _modoEdicion = false;
+                    if (newIndex >= 0 && dgvProductos.CurrentRow.DataBoundItem is Producto prod)
+                    {
+                        _suspendirSelection = true;
+                        CargarDatosProducto(prod);
+                        BloquearControles();
+                        _suspendirSelection = false;
+                        _prevSelectedRowIndex = newIndex;
+                    }
+                    else
+                    {
+                        LimpiarCampos();
+                        _prevSelectedRowIndex = -1;
+                    }
+                }
+                else
+                {
+                    _suspendirSelection = true;
+                    if (_prevSelectedRowIndex >= 0 && _prevSelectedRowIndex < dgvProductos.Rows.Count)
+                    {
+                        dgvProductos.ClearSelection();
+                        dgvProductos.CurrentCell = dgvProductos.Rows[_prevSelectedRowIndex].Cells[0];
+                        dgvProductos.Rows[_prevSelectedRowIndex].Selected = true;
+                    }
+                    else
+                    {
+                        dgvProductos.ClearSelection();
+                    }
+                    _suspendirSelection = false;
+                }
+
+                return;
+            }
+
+            if (dgvProductos.CurrentRow != null && dgvProductos.CurrentRow.DataBoundItem is Producto)
+            {
+                var producto = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+                if (_editingProductId > 0 && producto.Id == _editingProductId)
+                {
+                    CargarDatosProducto(producto);
+                    _prevSelectedRowIndex = dgvProductos.CurrentRow.Index;
+                    _editingProductId = -1;
+                    return;
+                }
+                CargarDatosProducto(producto);
+                _prevSelectedRowIndex = dgvProductos.CurrentRow.Index;
+            }
+            else
+            {
+                _prevSelectedRowIndex = -1;
+            }
+        }
+
+        private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_suspendirEventos)
+                return;
+            try
+            {
+                if (cmbCategorias.SelectedIndex >= 0)
+                {
+                    int categoriaId = (int)cmbCategorias.SelectedValue;
+                    _listaProductos = _productoNegocio.ObtenerProductosPorCategoria(categoriaId);
+                    dgvProductos.DataSource = null;
+                    dgvProductos.DataSource = _listaProductos;
+                    lblTotal.Text = $"Productos encontrados: {_listaProductos.Count}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al filtrar por categoría: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+}

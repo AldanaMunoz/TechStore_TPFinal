@@ -1,0 +1,425 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formreporteproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formreporteproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formreporteproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formreporteproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formreportesucursales.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formreportesucursales.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formreportevendedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formreportevendedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formreportevendedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formreportevendedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\forminventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\forminventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.presentacion\\forminventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\forminventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.presentacion\\formnuevaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formnuevaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formconsultarventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formconsultarventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formmenuprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formmenuprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.presentacion\\formmenuprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formmenuprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.entidades\\inventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|solutionrelative:techstore.entidades\\inventario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.presentacion\\formconsultarventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formconsultarventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.presentacion\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F81B5F-926D-47FF-8840-A018252D878E}|TechStore.Datos\\TechStore.Datos.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.datos\\ventarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F81B5F-926D-47FF-8840-A018252D878E}|TechStore.Datos\\TechStore.Datos.csproj|solutionrelative:techstore.datos\\ventarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.entidades\\venta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|solutionrelative:techstore.entidades\\venta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.entidades\\detalleventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|solutionrelative:techstore.entidades\\detalleventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F81B5F-926D-47FF-8840-A018252D878E}|TechStore.Datos\\TechStore.Datos.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.datos\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F81B5F-926D-47FF-8840-A018252D878E}|TechStore.Datos\\TechStore.Datos.csproj|solutionrelative:techstore.datos\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\techstore.presentacion\\formnuevaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{713F7BD6-C0D1-4ADA-BC96-07AF80D942D0}|TechStore.Presentacion\\TechStore.Presentacion.csproj|solutionrelative:techstore.presentacion\\formnuevaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|d:\\usuario\\documentos\\documentos aldi\\uai\\das\\tp final\\techstore_sistemaventas\\techstore.entidades\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B44D458A-65B5-4D7B-A8CE-5B33A5D53863}|TechStore.Entidades\\TechStore.Entidades.csproj|solutionrelative:techstore.entidades\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Producto.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Producto.cs",
+              "RelativeDocumentMoniker": "TechStore.Entidades\\Producto.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Producto.cs",
+              "RelativeToolTip": "TechStore.Entidades\\Producto.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAABRwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T19:14:10.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FormReporteSucursales.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteSucursales.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormReporteSucursales.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteSucursales.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormReporteSucursales.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:44:44.068Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormReporteProductos.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteProductos.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormReporteProductos.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteProductos.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormReporteProductos.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAD4v0cAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:44:23.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormReporteProductos.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteProductos.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormReporteProductos.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteProductos.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormReporteProductos.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:41:40.828Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormProductos.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormProductos.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormProductos.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormProductos.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormProductos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:37:53.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormProductos.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormProductos.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormProductos.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormProductos.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormProductos.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:34:40.22Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FormReporteVendedores.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteVendedores.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormReporteVendedores.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteVendedores.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormReporteVendedores.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:46:32.487Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FormReporteVendedores.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteVendedores.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormReporteVendedores.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormReporteVendedores.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormReporteVendedores.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:47:10.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FormInventario.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormInventario.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormInventario.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormInventario.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormInventario.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:26:05.673Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FormClientes.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormClientes.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormClientes.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormClientes.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormClientes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKABAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:25:22.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FormConsultarVentas.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormConsultarVentas.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormConsultarVentas.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormConsultarVentas.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormConsultarVentas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T13:31:38.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FormInventario.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormInventario.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormInventario.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormInventario.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormInventario.cs",
+              "ViewState": "AgIAANEAAAAAAAAAAAAUwHYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:39:08.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FormNuevaVenta.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormNuevaVenta.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormNuevaVenta.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormNuevaVenta.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormNuevaVenta.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:29:50.551Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FormClientes.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormClientes.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormClientes.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormClientes.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormClientes.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T18:24:02.306Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FormMenuPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormMenuPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormMenuPrincipal.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T22:17:46.528Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FormMenuPrincipal.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormMenuPrincipal.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAqwF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T22:17:48.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Inventario.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Inventario.cs",
+              "RelativeDocumentMoniker": "TechStore.Entidades\\Inventario.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Inventario.cs",
+              "RelativeToolTip": "TechStore.Entidades\\Inventario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:36:41.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "FormConsultarVentas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormConsultarVentas.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormConsultarVentas.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormConsultarVentas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "TechStore.Presentacion\\FormConsultarVentas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T16:15:05.119Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "VentaRepository.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Datos\\VentaRepository.cs",
+              "RelativeDocumentMoniker": "TechStore.Datos\\VentaRepository.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Datos\\VentaRepository.cs",
+              "RelativeToolTip": "TechStore.Datos\\VentaRepository.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAkwAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T15:37:56.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Venta.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Venta.cs",
+              "RelativeDocumentMoniker": "TechStore.Entidades\\Venta.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\Venta.cs",
+              "RelativeToolTip": "TechStore.Entidades\\Venta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T13:30:50.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\Program.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\Program.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\Program.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:56:34.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DetalleVenta.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\DetalleVenta.cs",
+              "RelativeDocumentMoniker": "TechStore.Entidades\\DetalleVenta.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Entidades\\DetalleVenta.cs",
+              "RelativeToolTip": "TechStore.Entidades\\DetalleVenta.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAIA+wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:57:27.323Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FormNuevaVenta.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormNuevaVenta.cs",
+              "RelativeDocumentMoniker": "TechStore.Presentacion\\FormNuevaVenta.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Presentacion\\FormNuevaVenta.cs",
+              "RelativeToolTip": "TechStore.Presentacion\\FormNuevaVenta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T18:29:51.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Datos\\Repository.cs",
+              "RelativeDocumentMoniker": "TechStore.Datos\\Repository.cs",
+              "ToolTip": "D:\\Usuario\\Documentos\\Documentos Aldi\\UAI\\DAS\\TP FINAL\\TechStore_SistemaVentas\\TechStore.Datos\\Repository.cs",
+              "RelativeToolTip": "TechStore.Datos\\Repository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T13:44:21.301Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TechStore.Entidades;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormConsultarVentas : Form
+    {
+        private readonly VentaNegocio _ventaNegocio;
+        private List<Venta> _listaVentas;
+
+        // Simple view model for details grid
+        private class DetalleRow
+        {
+            public string ProductoCodigo { get; set; }
+            public string ProductoNombre { get; set; }
+            public int Cantidad { get; set; }
+            public decimal PrecioUnitario { get; set; }
+            public decimal Subtotal { get; set; }
+        }
+
+        public FormConsultarVentas()
+        {
+            InitializeComponent();
+            _ventaNegocio = new VentaNegocio();
+            ConfigurarFormulario();
+        }
+        private void FormConsultarVentas_Load(object sender, EventArgs e)
+        {
+            ConfigurarDataGridViews();
+            ConfigurarFechas();
+            CargarVentas();
+
+            try
+            {
+                btnBuscar.Click -= btnBuscar_Click;
+            }
+            catch { }
+            try
+            {
+                btnVerTodas.Click -= btnVerTodas_Click;
+            }
+            catch { }
+
+            btnBuscar.Click += btnBuscar_Click;
+            btnVerTodas.Click += btnVerTodas_Click;
+            dgvVentas.SelectionChanged -= dgvVentas_SelectionChanged;
+            dgvVentas.SelectionChanged += dgvVentas_SelectionChanged;
+        }
+        private void ConfigurarFormulario()
+        {
+            this.Text = "Consultar Ventas";
+        }
+
+        private void ConfigurarFechas()
+        {
+            dtpDesde.Value = DateTime.Now.AddMonths(-1);
+            dtpHasta.Value = DateTime.Now;
+        }
+        private void ConfigurarDataGridViews()
+        {
+            dgvVentas.AutoGenerateColumns = false;
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVentas.MultiSelect = false;
+            dgvVentas.ReadOnly = true;
+            dgvVentas.AllowUserToAddRows = false;
+
+            dgvVentas.Columns.Clear();
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NumeroFactura",
+                HeaderText = "N° Factura",
+                Width = 120
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FechaVenta",
+                HeaderText = "Fecha",
+                Width = 150,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" }
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ClienteRazonSocial",
+                HeaderText = "Cliente", 
+                Width = 250
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "VendedorNombre",
+                HeaderText = "Vendedor",
+                Width = 200
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SucursalNombre",
+                HeaderText = "Sucursal",
+                Width = 150
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Total",
+                HeaderText = "Total",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MetodoPagoNombre",
+                HeaderText = "Método Pago",
+                Width = 120
+            });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Estado",
+                HeaderText = "Estado",
+                Width = 100
+            });
+
+            // We use explicit columns defined below, disable auto-generation
+            dgvDetalles.AutoGenerateColumns = false;
+            dgvDetalles.ReadOnly = true;
+            dgvDetalles.AllowUserToAddRows = false;
+
+            dgvDetalles.Columns.Clear();
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ProductoCodigo",
+                HeaderText = "Código",
+                Width = 100
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ProductoNombre",
+                HeaderText = "Producto",
+                Width = 350
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                Width = 80
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioUnitario",
+                HeaderText = "Precio Unit.",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Subtotal",
+                HeaderText = "Subtotal",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+        }
+        private void CargarVentas()
+        {
+            try
+            {
+                _listaVentas = _ventaNegocio.ObtenerVentas();
+                dgvVentas.DataSource = _listaVentas;
+                ActualizarTotales();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar ventas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime fechaDesde = dtpDesde.Value.Date;
+                DateTime fechaHasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1);
+
+                // Try server-side filter first
+                _listaVentas = _ventaNegocio.ObtenerVentasPorFechas(fechaDesde, fechaHasta);
+
+                // Fallback: if server returned nothing (or didn't filter), apply client-side filter on full list
+                if (_listaVentas == null || !_listaVentas.Any())
+                {
+                    var todas = _ventaNegocio.ObtenerVentas();
+                    _listaVentas = todas.Where(v => v.FechaVenta >= fechaDesde && v.FechaVenta <= fechaHasta)
+                                         .OrderByDescending(v => v.FechaVenta)
+                                         .ToList();
+                }
+
+                dgvVentas.DataSource = null;
+                dgvVentas.DataSource = _listaVentas;
+                ActualizarTotales();
+
+                // If the filter returned exactly one sale, explicitly select it and load details
+                if (_listaVentas != null && _listaVentas.Count == 1)
+                {
+                    try
+                    {
+                        // Defer selection to ensure the grid has created rows and the currency manager is ready
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            try
+                            {
+                                dgvVentas.ClearSelection();
+                                if (dgvVentas.Rows.Count > 0)
+                                {
+                                    dgvVentas.Rows[0].Selected = true;
+                                    dgvVentas.CurrentCell = dgvVentas.Rows[0].Cells[0];
+                                    // Load details for that single sale
+                                    CargarDetallesVenta(_listaVentas[0].Id);
+                                }
+                            }
+                            catch { }
+                        }));
+                    }
+                    catch { }
+                }
+
+                // Clear detalles grid when there are zero results or multiple results
+                if (_listaVentas == null || _listaVentas.Count != 1)
+                {
+                    dgvDetalles.DataSource = null;
+                    dgvDetalles.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar ventas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnVerTodas_Click(object sender, EventArgs e)
+        {
+            ConfigurarFechas();
+            CargarVentas();
+        }
+
+        private void dgvVentas_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvVentas.CurrentRow != null && dgvVentas.CurrentRow.DataBoundItem is Venta venta)
+                {
+                    if (venta.Id > 0)
+                    {
+                        CargarDetallesVenta(venta.Id);
+                        return;
+                    }
+                }
+
+                // No valid selection -> clear detalles
+                dgvDetalles.DataSource = null;
+                dgvDetalles.Refresh();
+            }
+            catch (Exception ex)
+            {
+                // Ignore and clear detalles on error
+                dgvDetalles.DataSource = null;
+                dgvDetalles.Refresh();
+            }
+        }
+
+        private void CargarDetallesVenta(int ventaId)
+        {
+            try
+            {
+                var venta = _ventaNegocio.ObtenerVentaConDetalles(ventaId);
+                 if (venta != null && venta.Detalles != null)
+                 {
+                     // Ensure Producto navigation property is populated for each detalle
+                     var productoRepo = new TechStore.Datos.Repository<TechStore.Entidades.Producto>();
+
+                     var detalles = venta.Detalles.Select(d =>
+                     {
+                         if (d.Producto == null)
+                         {
+                             try
+                             {
+                                 var prod = productoRepo.ObtenerPorId(d.ProductoId);
+                                 d.Producto = prod;
+                             }
+                             catch { }
+                         }
+                         return d;
+                     }).ToList();
+
+                     // Map to typed view-model list and bind
+                     var detallesVm = detalles.Select(d => new DetalleRow
+                     {
+                         ProductoCodigo = d.Producto?.Codigo ?? string.Empty,
+                         ProductoNombre = d.Producto?.Nombre ?? string.Empty,
+                         Cantidad = d.Cantidad,
+                         PrecioUnitario = d.PrecioUnitario,
+                         Subtotal = d.Subtotal
+                     }).ToList();
+
+                     dgvDetalles.DataSource = null;
+                     dgvDetalles.DataSource = new BindingList<DetalleRow>(detallesVm);
+                     dgvDetalles.Refresh();
+
+                     return;
+                 }
+
+                 dgvDetalles.DataSource = null;
+                 dgvDetalles.Refresh();
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show($"Error al cargar detalles: {ex.Message}", "Error",
+                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 dgvDetalles.DataSource = null;
+                 dgvDetalles.Refresh();
+             }
+         }
+        private void ActualizarTotales()
+        {
+            lblTotal.Text = $"Total de ventas: {_listaVentas.Count}";
+            decimal totalMonto = _listaVentas
+                .Where(v => v.Estado == "Completada")
+                .Sum(v => v.Total);
+            lblTotalMonto.Text = $"Monto total: {totalMonto:C2}";
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    }
+}

@@ -1,0 +1,30 @@
+﻿using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TechStore.Entidades;
+using TechStore.Negocio;
+
+namespace TechStore.Presentacion
+{
+    public partial class FormConsultarVentas : Form
+    {
+        private readonly VentaNegocio _ventaNegocio;
+        private List<Venta> _listaVentas;
+
+        public FormConsultarVentas()
+        {
+            InitializeComponent();
+        }
+
+        private void FormConsultarVentas_Load(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+    }
+}

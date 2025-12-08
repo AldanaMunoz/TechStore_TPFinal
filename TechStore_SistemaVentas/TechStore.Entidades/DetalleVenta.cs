@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TechStore.Entidades
+{
+    [Table("DetallesVenta")]
+    public class DetalleVenta
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int VentaId { get; set; }
+
+        [ForeignKey("VentaId")]
+        public virtual Venta Venta { get; set; }
+
+        [Required]
+        public int ProductoId { get; set; }
+
+        [ForeignKey("ProductoId")]
+        public virtual Producto Producto { get; set; }
+
+        [Required]
+        public int Cantidad { get; set; }
+
+        [Required]
+        public decimal PrecioUnitario { get; set; }
+
+        [Required]
+        public decimal Subtotal { get; set; }
+
+        // Computed properties for UI binding
+        [NotMapped]
+        public string ProductoCodigo => Producto?.Codigo ?? string.Empty;
+
+        [NotMapped]
+        public string ProductoNombre => Producto?.Nombre ?? string.Empty;
+    }
+}
