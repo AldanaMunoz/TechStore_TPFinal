@@ -1,9 +1,4 @@
--- ========================================
--- SISTEMA DE GESTIÓN DE VENTAS - TECHSTORE S.A.
--- Script de Creación de Base de Datos
--- ========================================
 
--- Crear la base de datos
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'TechStoreDB')
 BEGIN
     CREATE DATABASE TechStoreDB;
@@ -12,10 +7,6 @@ GO
 
 USE TechStoreDB;
 GO
-
--- ========================================
--- TABLAS DEL SISTEMA
--- ========================================
 
 -- Tabla: Sucursales
 CREATE TABLE Sucursales (
@@ -109,7 +100,7 @@ CREATE TABLE Vendedores (
     FOREIGN KEY (SucursalId) REFERENCES Sucursales(Id)
 );
 
--- Tabla: Ventas (Cabecera)
+-- Tabla: Ventas
 CREATE TABLE Ventas (
     Id INT PRIMARY KEY IDENTITY(1,1),
     NumeroFactura VARCHAR(20) NOT NULL UNIQUE,
@@ -130,7 +121,7 @@ CREATE TABLE Ventas (
     FOREIGN KEY (MetodoPagoId) REFERENCES MetodosPago(Id)
 );
 
--- Tabla: Detalle de Ventas (Líneas de productos)
+-- Tabla: Detalle de Ventas
 CREATE TABLE DetallesVenta (
     Id INT PRIMARY KEY IDENTITY(1,1),
     VentaId INT NOT NULL,
@@ -142,7 +133,7 @@ CREATE TABLE DetallesVenta (
     FOREIGN KEY (ProductoId) REFERENCES Productos(Id)
 );
 
--- Tabla: Cuentas Corrientes (para clientes con crédito)
+-- Tabla: Cuentas Corrientes
 CREATE TABLE CuentasCorrientes (
     Id INT PRIMARY KEY IDENTITY(1,1),
     ClienteId INT NOT NULL,
@@ -156,10 +147,6 @@ CREATE TABLE CuentasCorrientes (
     FOREIGN KEY (ClienteId) REFERENCES Clientes(Id),
     FOREIGN KEY (VentaId) REFERENCES Ventas(Id)
 );
-
--- ========================================
--- ÍNDICES PARA OPTIMIZAR CONSULTAS
--- ========================================
 
 CREATE INDEX IX_Productos_Codigo ON Productos(Codigo);
 CREATE INDEX IX_Productos_Categoria ON Productos(CategoriaId);
@@ -306,7 +293,7 @@ INNER JOIN MetodosPago mp ON v.MetodoPagoId = mp.Id;
 GO
 
 -- ========================================
--- STORED PROCEDURES ÚTILES
+-- STORED PROCEDURES
 -- ========================================
 
 -- SP: Registrar una venta nueva
@@ -324,7 +311,6 @@ BEGIN
     BEGIN TRANSACTION;
     
     BEGIN TRY
-        -- Insertar la venta (inicialmente con totales en 0)
         INSERT INTO Ventas (NumeroFactura, ClienteId, VendedorId, SucursalId, MetodoPagoId, 
                            Subtotal, MontoDescuento, Total, Observaciones)
         VALUES (@NumeroFactura, @ClienteId, @VendedorId, @SucursalId, @MetodoPagoId, 
@@ -358,10 +344,8 @@ BEGIN
         DECLARE @Subtotal DECIMAL(18,2);
         DECLARE @StockDisponible INT;
         
-        -- Obtener precio del producto
         SELECT @PrecioUnitario = PrecioUnitario FROM Productos WHERE Id = @ProductoId;
         
-        -- Verificar stock disponible
         SELECT @StockDisponible = StockActual 
         FROM Inventario 
         WHERE ProductoId = @ProductoId AND SucursalId = @SucursalId;
@@ -372,14 +356,11 @@ BEGIN
             RETURN -1;
         END
         
-        -- Calcular subtotal
         SET @Subtotal = @PrecioUnitario * @Cantidad;
         
-        -- Insertar detalle de venta
         INSERT INTO DetallesVenta (VentaId, ProductoId, Cantidad, PrecioUnitario, Subtotal)
         VALUES (@VentaId, @ProductoId, @Cantidad, @PrecioUnitario, @Subtotal);
         
-        -- Actualizar inventario
         UPDATE Inventario 
         SET StockActual = StockActual - @Cantidad,
             UltimaActualizacion = GETDATE()
@@ -411,21 +392,16 @@ BEGIN
         DECLARE @ClienteId INT;
         DECLARE @TipoClienteId INT;
         
-        -- Calcular subtotal de los detalles
         SELECT @Subtotal = SUM(Subtotal) FROM DetallesVenta WHERE VentaId = @VentaId;
         
-        -- Obtener tipo de cliente
         SELECT @ClienteId = ClienteId FROM Ventas WHERE Id = @VentaId;
         SELECT @TipoClienteId = TipoClienteId FROM Clientes WHERE Id = @ClienteId;
         
-        -- Obtener porcentaje de descuento según tipo de cliente
         SELECT @PorcentajeDescuento = PorcentajeDescuento FROM TiposCliente WHERE Id = @TipoClienteId;
         
-        -- Calcular descuento y total
         SET @MontoDescuento = @Subtotal * (@PorcentajeDescuento / 100);
         SET @Total = @Subtotal - @MontoDescuento;
         
-        -- Actualizar la venta
         UPDATE Ventas
         SET Subtotal = @Subtotal,
             PorcentajeDescuento = @PorcentajeDescuento,
