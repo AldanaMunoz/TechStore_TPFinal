@@ -6,10 +6,6 @@
 USE TechStoreDB;
 GO
 
--- =====================================================
--- LIMPIAR DATOS EXISTENTES (OPCIONAL - Descomenta si quieres empezar de cero)
--- =====================================================
-/*
 DELETE FROM CuentasCorrientes;
 DELETE FROM DetallesVenta;
 DELETE FROM Ventas;
@@ -21,7 +17,6 @@ DELETE FROM Vendedores;
 DELETE FROM Sucursales;
 DELETE FROM MetodosPago;
 DELETE FROM TiposCliente;
-*/
 
 -- =====================================================
 -- 1. SUCURSALES (3 sucursales)
